@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        countLabel.text = "Значение счетчика: \(count)"
+        
     }
 
     @IBAction func buttonAction(_ sender: UIButton) {

@@ -71,7 +71,7 @@ class ViewController: UIViewController {
 extension Date {
     var toJustTime: String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm:ss dd MMMM yyyy"
+        dateFormatter.dateFormat = "dd MMMM yyyy HH:mm:ss"
         return  dateFormatter.string(from: self)
     }
 }

@@ -17,9 +17,6 @@ class ViewController: UIViewController {
     
     private var count: Int = 0
     private var historyArray: [String] = []
-    let date = Date()
-    let dateFormatter = DateFormatter()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,9 +37,15 @@ class ViewController: UIViewController {
         
     }
     
+    private func simpleTime() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd MMMM yyyy HH:mm:ss"
+        return  dateFormatter.string(from: Date())
+    }
+    
     @IBAction func buttonPlus(_ sender: UIButton) {
         count += 1
-        historyArray.append("\(date.toJustTime): значение изменено на +1")
+        historyArray.append("\(simpleTime()): значение изменено на +1")
         updateInfo()
         
     }
@@ -51,16 +54,16 @@ class ViewController: UIViewController {
         count -= 1
         if count < 0 {
             count = 0
-            historyArray.append("\(date.toJustTime) попытка уменьшить значение счётчика ниже 0")
+            historyArray.append("\(simpleTime()) попытка уменьшить значение счётчика ниже 0")
         } else {
-            historyArray.append("\(date.toJustTime): значение изменено на -1")
+            historyArray.append("\(simpleTime()): значение изменено на -1")
         }
         updateInfo()
     }
     
     @IBAction func buttonClear(_ sender: UIButton) {
         count = 0
-        historyArray.append("\(date.toJustTime): значение сброшено")
+        historyArray.append("\(simpleTime()): значение сброшено")
         updateInfo()
         
     }
@@ -68,7 +71,7 @@ class ViewController: UIViewController {
     
     }
     
-extension Date {
+/*extension Date {
     var toJustTime: String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd MMMM yyyy HH:mm:ss"
@@ -76,3 +79,4 @@ extension Date {
     }
 }
 
+*/

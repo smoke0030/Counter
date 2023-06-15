@@ -14,9 +14,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var plusButtonOutlet: UIButton!
     @IBOutlet weak var minusButtonOutlet: UIButton!
     @IBOutlet weak var clearButtonOutlet: UIButton!
+    @IBOutlet weak var clearHistory: UIButton!
     
     private var count: Int = 0
     private var historyArray: [String] = []
+    let message = ": Значение изменено на "
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,10 +27,16 @@ class ViewController: UIViewController {
         historyLabel.isEditable = false
         plusButtonOutlet.setImage(UIImage(systemName: "plus"), for: .normal)
         minusButtonOutlet.setImage(UIImage(systemName: "minus"), for: .normal)
+        clearButtonOutlet.setImage(UIImage(systemName: "clear"), for: .normal)
         plusButtonOutlet.backgroundColor = .red
         minusButtonOutlet.backgroundColor = .blue
         clearButtonOutlet.backgroundColor = .green
-        clearButtonOutlet.setImage(UIImage(systemName: "clear"), for: .normal)
+        plusButtonOutlet.setTitle("", for: .normal)
+        minusButtonOutlet.setTitle("", for: .normal)
+        clearButtonOutlet.setTitle("", for: .normal)
+        clearHistory.setTitle("Clear history", for: .normal)
+        clearHistory.backgroundColor = .brown
+        clearHistory.tintColor = .white
         
         
     }
@@ -37,15 +46,16 @@ class ViewController: UIViewController {
         
     }
     
-    private func simpleTime() -> String {
+    private func getCurrentTime() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd MMMM yyyy HH:mm:ss"
         return  dateFormatter.string(from: Date())
     }
     
+    
     @IBAction func buttonPlus(_ sender: UIButton) {
         count += 1
-        historyArray.append("\(simpleTime()): значение изменено на +1")
+        historyArray.append("\(getCurrentTime()): значение изменено на +1")
         updateInfo()
         
     }
@@ -54,29 +64,26 @@ class ViewController: UIViewController {
         count -= 1
         if count < 0 {
             count = 0
-            historyArray.append("\(simpleTime()) попытка уменьшить значение счётчика ниже 0")
+            historyArray.append("\(getCurrentTime()) попытка уменьшить значение счётчика ниже 0")
         } else {
-            historyArray.append("\(simpleTime()): значение изменено на -1")
+            historyArray.append("\(getCurrentTime()): значение изменено на -1")
         }
         updateInfo()
     }
     
     @IBAction func buttonClear(_ sender: UIButton) {
         count = 0
-        historyArray.append("\(simpleTime()): значение сброшено")
+        historyArray.append("\(getCurrentTime()): значение сброшено")
         updateInfo()
         
     }
     
+    @IBAction func historyClear(_ sender: UIButton) {
+        historyArray.removeAll()
+        historyLabel.text = "История изменений:"
+    }
+    
+    
     
     }
     
-/*extension Date {
-    var toJustTime: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MMMM yyyy HH:mm:ss"
-        return  dateFormatter.string(from: self)
-    }
-}
-
-*/

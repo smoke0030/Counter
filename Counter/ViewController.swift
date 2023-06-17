@@ -9,21 +9,20 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var countLabel: UILabel!
-    @IBOutlet weak var historyLabel: UITextView!
-    @IBOutlet weak var plusButtonOutlet: UIButton!
-    @IBOutlet weak var minusButtonOutlet: UIButton!
-    @IBOutlet weak var clearButtonOutlet: UIButton!
-    @IBOutlet weak var clearHistory: UIButton!
+    @IBOutlet weak private var countLabel: UILabel!
+    @IBOutlet weak private var historyLabel: UITextView!
+    @IBOutlet weak private var plusButtonOutlet: UIButton!
+    @IBOutlet weak private var minusButtonOutlet: UIButton!
+    @IBOutlet weak private var clearButtonOutlet: UIButton!
+    @IBOutlet weak private var clearHistory: UIButton!
     
+    private let dateFormatter = DateFormatter()
     private var count: Int = 0
     private var historyArray: [String] = []
-    let message = ": Значение изменено на "
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         historyLabel.isEditable = false
         plusButtonOutlet.setImage(UIImage(systemName: "plus"), for: .normal)
         minusButtonOutlet.setImage(UIImage(systemName: "minus"), for: .normal)
@@ -47,20 +46,19 @@ class ViewController: UIViewController {
     }
     
     private func getCurrentTime() -> String {
-        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd MMMM yyyy HH:mm:ss"
         return  dateFormatter.string(from: Date())
     }
     
     
-    @IBAction func buttonPlus(_ sender: UIButton) {
+    @IBAction private func buttonPlus(_ sender: UIButton) {
         count += 1
         historyArray.append("\(getCurrentTime()): значение изменено на +1")
         updateInfo()
         
     }
     
-    @IBAction func buttonMinus(_ sender: UIButton) {
+    @IBAction private func buttonMinus(_ sender: UIButton) {
         count -= 1
         if count < 0 {
             count = 0
@@ -71,14 +69,14 @@ class ViewController: UIViewController {
         updateInfo()
     }
     
-    @IBAction func buttonClear(_ sender: UIButton) {
+    @IBAction private func buttonClear(_ sender: UIButton) {
         count = 0
         historyArray.append("\(getCurrentTime()): значение сброшено")
         updateInfo()
         
     }
     
-    @IBAction func historyClear(_ sender: UIButton) {
+    @IBAction private func historyClear(_ sender: UIButton) {
         historyArray.removeAll()
         historyLabel.text = "История изменений:"
     }
